@@ -27,7 +27,7 @@ def needtoRun():
 def connectRDP():
     cmd = ["xfreerdp", f"/v:{HOST}", f"/u:{USER}", f"/p:{PASS}", "/size:1920x1080", "/smart-sizing", "/cert:ignore"]
     try:
-        proc = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+        proc = subprocess.Popen(["xvfb-run", "-a"] + cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
         try:
             out, err = proc.communicate(timeout=80)
             print("Process Finished Early!", flush=True)

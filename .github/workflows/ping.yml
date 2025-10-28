@@ -21,7 +21,7 @@ jobs:
     - name: Install freerdp2-x11
       run: |
         sudo apt-get update
-        sudo apt-get install -y freerdp2-x11
+        sudo apt-get install -y freerdp2-x11 xvfb x11-utils
 
     - name: Install Python dependencies
       run: |
