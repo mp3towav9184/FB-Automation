@@ -1,0 +1,38 @@
+name: PING RDP
+
+on:
+  schedule:
+    - cron: '0,15,30,45 * * * *'
+  workflow_dispatch:
+
+jobs:
+  run-ping:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up Python 3.13
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.13'
+
+    - name: Install freerdp2-x11
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y freerdp2-x11
+
+    - name: Install Python dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Run Ping
+      env:
+          API_TOKEN: ${{ secrets.API_TOKEN }}
+          RDP_HOST: ${{ secrets.RDP_HOST }}
+          RDP_USER: ${{ secrets.RDP_USER }}
+          RDP_PASS: ${{ secrets.RDP_PASS }}
+      run: python pingRDP.py
+
