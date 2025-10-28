@@ -2,7 +2,7 @@ name: PING RDP
 
 on:
   schedule:
-    - cron: '0,15,30,45 * * * *'
+    - cron: '7-59/15 * * * *'
   workflow_dispatch:
 
 jobs:
