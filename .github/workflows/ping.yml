@@ -2,7 +2,7 @@ name: PING RDP
 
 on:
   schedule:
-    - cron: '7-59/15 * * * *'
+    - cron: '7/15 * * * *'
   workflow_dispatch:
 
 jobs:
@@ -34,5 +34,6 @@ jobs:
           RDP_HOST: ${{ secrets.RDP_HOST }}
           RDP_USER: ${{ secrets.RDP_USER }}
           RDP_PASS: ${{ secrets.RDP_PASS }}
+      timeout-minutes: 10
       run: python pingRDP.py
 
