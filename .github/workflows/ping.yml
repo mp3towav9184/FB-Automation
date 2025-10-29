@@ -34,6 +34,6 @@ jobs:
           RDP_HOST: ${{ secrets.RDP_HOST }}
           RDP_USER: ${{ secrets.RDP_USER }}
           RDP_PASS: ${{ secrets.RDP_PASS }}
-      timeout-minutes: 10
+      timeout-minutes: 5
       run: python pingRDP.py
 
