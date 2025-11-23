@@ -1,5 +1,4 @@
-import codehooks as chks
-import traceback, os, subprocess, sys
+import traceback, os, subprocess, sys, requests as rq
 from time import sleep, time
 
 HOST = os.getenv('RDP_HOST')
@@ -10,9 +9,11 @@ isErr = False
 def needtoRun():
     global isErr
     try:
-        r = chks.getSingleObjectFromCollection('fb-automation', '6900629fb029f9be5510e815')
-        assert r.get('lastRun')
-        sec = time() - r.get('lastRun')
+        r = rq.get('https://letscountapi.com/api/public/counters/8a1e77bc-187a-4e51-87a0-dcc28e5ed1fe', headers={'X-API-Key': '22eadebffed458047131479e91d49ff1bae9f6c397c9cb66c0b61f0879041142'})
+        d = r.json()
+        lr = d.get('value')
+        assert lr
+        sec = time() - lr
         mints = sec / 60
         if mints >= 15:
             return True

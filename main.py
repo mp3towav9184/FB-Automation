@@ -1,6 +1,5 @@
-import codehooks as chks
 from time import sleep, time
-import traceback, atexit, sys
+import traceback, atexit, sys, requests as rq
 from DrissionPage import ChromiumPage, ChromiumOptions
 from DrissionPage.items import ChromiumElement
 
@@ -8,8 +7,11 @@ from DrissionPage.items import ChromiumElement
 def setLastRun(t: int = None):
     t = int(t or time())
     try:
-        r = chks.editSingleObjectOfCollection('fb-automation', '6900629fb029f9be5510e815', dict(lastRun=t))
-        assert r.get('lastRun') == t
+        r = rq.post('https://letscountapi.com/api/public/counters/8a1e77bc-187a-4e51-87a0-dcc28e5ed1fe/update', headers={'X-API-Key': '22eadebffed458047131479e91d49ff1bae9f6c397c9cb66c0b61f0879041142'}, json=dict(value=t))
+        d = r.json()
+        assert d.get('value') == t
+        # r = chks.editSingleObjectOfCollection('fb-automation', '6900629fb029f9be5510e815', dict(lastRun=t))
+        # assert r.get('lastRun') == t
     except:
         traceback.print_exc()
         print('Retrying setLastRun after a delay...', flush=True)
